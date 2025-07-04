@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Bookmarklet - Elementary</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <h2>Your Elementary Bookmarklet</h2>
+  <p>Drag this button below into your bookmarks bar:</p>
+  <a href="<%= bookmark %>"><button>Drag Me!</button></a>
+  <p>text btw: </p>
+  <textarea id="bookmarklet-container" rows="4" cols="80" readonly ><%= bookmark %></textarea>
+  <p>Use this bookmarklet on any website to enter the Elementary world.</p>
+  <p><a href="/auth/logout">Log Out</a></p>
+</body>
+</html>

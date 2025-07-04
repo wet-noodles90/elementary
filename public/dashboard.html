@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - Elementary</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <h2>Character Settings</h2>
+  <form action="/user/settings" method="post">
+    <label>Display Name: <input type="text" name="displayName" required /></label><br />
+    <label>Color: <input type="color" name="color" value="#ff0000" required /></label><br />
+    <button type="submit">Save & Generate Bookmarklet</button>
+  </form>
+  <p><a href="/auth/logout">Log Out</a></p>
+</body>
+</html>
