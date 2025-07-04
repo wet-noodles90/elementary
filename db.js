@@ -1,16 +1,39 @@
-const sqlite3 = require('sqlite3').verbose();
+const { neon } = require('@netlify/neon')
 const { promisify } = require('util');
-const db = new sqlite3.Database('data/users.db');
+const sql = neon();
 
-db.run(`CREATE TABLE IF NOT EXISTS users (uuid TEXT PRIMARY KEY, username TEXT UNIQUE, password TEXT, displayName TEXT, color TEXT)`);
+await sql`CREATE TABLE IF NOT EXISTS users (uuid TEXT PRIMARY KEY, username TEXT UNIQUE, password TEXT, displayName TEXT, color TEXT)`;
 
 module.exports = {
-  addUser: (username, password) => new Promise((resolve, reject) => {
+  addUser: (username, password) => new Promise(async (resolve, reject) => {
     const uuid = require('crypto').randomUUID();
-    db.run(`INSERT INTO users (uuid,username,password) VALUES (?,?,?)`, [uuid,username,password], err => err ? reject(err) : resolve(uuid));
+    try {
+      
+      await sql`INSERT INTO users (uuid,username,password) VALUES (${uuid},${username},${password})`;
+    } catch (err) {
+      reject(err);
+    }
+
+    resolve(uuid);
   }),
-  getUser: username => new Promise((res, rej) => db.get(`SELECT * FROM users WHERE username=?`, [username], (e,row) => e?rej(e):res(row))),
-  getUserFromUUID: uuid => new Promise((res, rej) => db.get(`SELECT * FROM users WHERE uuid=?`, [uuid], (e,row) => e?rej(e):res(row))),
+  getUser: username => new Promise(async (res, rej) => {
+    try {
+      var row = await sql`SELECT * FROM users WHERE username=${username}`;
+    } catch (err) {
+      rej(err);
+    }
+
+    res(row);
+  }),
+  getUserFromUUID: uuid => new Promise(async (res, rej) => {
+    try {
+      var row = await sql`SELECT * FROM users WHERE uuid=${uuid}`;
+    } catch (err) {
+      rej(err);
+    }
+
+    res(row);
+  }),
   updateUser: (uuid, fields) => new Promise((resolve,reject)=>{
     db.run(`UPDATE users SET displayName=?,color=? WHERE uuid=?`, [fields.displayName, fields.color, uuid], err => err?reject(err):resolve());
   })
