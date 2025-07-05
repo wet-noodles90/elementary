@@ -19,10 +19,13 @@ function ensureDependencies(){
     var blob = await fetch(`https://elementary-production.up.railway.app/user/player/${uuid}`, {
       mode: 'cors'
     });
+
+    var info;
+
     try {
-      var info = await blob.clone().json();
+      info = await blob.clone().json();
     } catch (e) {
-      var info = await blob.text();
+      info = await blob.text();
     }
 
     // Player object
