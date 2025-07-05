@@ -11,7 +11,7 @@ router.post('/settings', async (req, res) => {
   await db.updateUser(req.session.uuid, { displayName, color });
   const uuid = req.session.uuid;
   // generate code
-  const scriptUrl = `${req.protocol}://${req.get('host')}/client.js`;
+  const scriptUrl = `https://${req.get('host')}/client.js`;
   const bookmark = `javascript:(function(){if(!window.jQuery){var s=document.createElement('script');s.src='https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js';document.body.appendChild(s);}if(!window.io){var i=document.createElement('script');i.src='https://cdn.socket.io/4.8.1/socket.io.min.js';document.body.appendChild(i)};if(!window.elementary){var m=document.createElement('meta');m.setAttribute('ele-uuid', '${uuid}');m.id='ele-uuid';document.head.appendChild(m);var c=document.createElement('script');c.src='${scriptUrl}';document.body.appendChild(c);}else{console.log("didn't inject elementary because it is already added!")}})();`;
   res.render('bookmarklet', { bookmark })
 });

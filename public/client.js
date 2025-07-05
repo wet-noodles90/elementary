@@ -8,7 +8,7 @@ function ensureDependencies(){
     // Create container overlay
     window.elementary = true;
     const container = $('<div id="ele-container" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998"></div>').appendTo('body');
-    const socket = io('ws://localhost:3000', { transports: ["websocket"] });
+    const socket = io('wss://elementary-production.up.railway.app', { transports: ["websocket"] });
     const page = window.location.hostname + window.location.pathname;
     var textBoxShown = false
 
@@ -16,7 +16,7 @@ function ensureDependencies(){
 
     console.log(uuid)
 
-    var blob = await fetch(`http://localhost:3000/user/player/${uuid}`, {
+    var blob = await fetch(`https://elementary-production.up.railway.app/user/player/${uuid}`, {
       mode: 'cors'
     });
     var info = await blob.json();
