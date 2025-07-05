@@ -1,0 +1,1 @@
+This folder is intentionally empty (or maybe not) and will soon contain a users.db file for all of the users. this is here so github will add this folder because it is super important!!!!!!
