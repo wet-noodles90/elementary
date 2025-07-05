@@ -20,7 +20,7 @@ function ensureDependencies(){
       mode: 'cors'
     });
     try {
-      var info = await blob.json();
+      var info = await blob.clone().json();
     } catch (e) {
       var info = await blob.text();
     }
