@@ -16,20 +16,12 @@ function ensureDependencies(){
 
     console.log(uuid)
 
-    var blob = await fetch(`https://elementary-production.up.railway.app/user/player/${uuid}`, {
-      mode: 'cors'
-    });
+    var infoColor = $('meta#ele-color').attr('ele-color');
 
-    var info;
-
-    try {
-      info = await blob.clone().json();
-    } catch (e) {
-      info = await blob.text();
-    }
+    var infoDisplayName = $('meta#ele-name').attr('ele-name');
 
     // Player object
-    const player = { x:20, y:20, rot:0, color: info.color || '#f00', name: info.displayName || 'Guest', messages: [] };
+    const player = { x:20, y:20, rot:0, color: infoColor || '#f00', name: infoDisplayName || 'Guest', messages: [] };
     socket.emit('join',{player,page});
 
     function render(list){
